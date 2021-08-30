@@ -24,8 +24,8 @@ internal class HomeRepositoryImpl (
 //    private var _personListLiveData = MutableLiveData<ArrayList<PersonToPresentation?>>()
 //    private val personListLiveData : LiveData<ArrayList<PersonToPresentation?>> get() = _personListLiveData
 
-    override suspend fun getRandomUser() : GetRandomUserResponseDC =
-        remoteDataSource.getRandomUser()
+    override suspend fun getBeerListByPage() : GetRandomUserResponseDC =
+        remoteDataSource.getBeerListByPage()
 
     override suspend fun getListOfUser(): LiveData<List<Person>> =
         localDataSource.getListOfUser()

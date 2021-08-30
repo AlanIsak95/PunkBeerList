@@ -5,6 +5,6 @@ import com.test.project.connection.home.domain.use_case.get_random_user.GetRando
 internal interface IHomeRemoteDataSource {
 
     /** */
-    suspend fun getRandomUser() : GetRandomUserResponseDC
+    suspend fun getBeerListByPage() : GetRandomUserResponseDC
 
 }

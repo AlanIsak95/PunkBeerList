@@ -10,6 +10,6 @@ interface IGetRandomUser {
     var getRandomUserResponse : GetRandomUserResponseDC
 
     /** */
-    suspend fun getRandomUserAsLiveData():LiveData<ServiceStatus<String?, GetRandomUserResponseDC>>
+    suspend fun getBeerListByPageAsLiveData():LiveData<ServiceStatus<String?, GetRandomUserResponseDC>>
 
 }

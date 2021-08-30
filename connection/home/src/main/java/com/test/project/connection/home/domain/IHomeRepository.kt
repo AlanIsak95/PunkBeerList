@@ -12,7 +12,7 @@ interface IHomeRepository {
     /**REMOTE*/
 
     /** */
-    suspend fun getRandomUser() : GetRandomUserResponseDC
+    suspend fun getBeerListByPage() : GetRandomUserResponseDC
 
 
 

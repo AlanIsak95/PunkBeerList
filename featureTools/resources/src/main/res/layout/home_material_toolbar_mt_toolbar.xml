@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/azure_radiance">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/home_material_toolbar_mt_header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_size_40"
+                android:background="@color/azure_radiance"
+                app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+                />
+
+            <TextView
+                android:id="@+id/home_material_toolbar_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="Title" />
+
+            <ImageView
+                android:id="@+id/home_material_toolbar_iv_favorites"
+                android:layout_width="@dimen/dimen_size_24"
+                android:layout_height="@dimen/dimen_size_24"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="@dimen/dimen_size_20"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_favorite"
+                />
+
+
+        </FrameLayout>
+
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?attr/colorPrimary"-->
+<!--        android:minHeight="?attr/actionBarSize"-->
+<!--        android:theme="?attr/actionBarTheme" />-->
+</layout>

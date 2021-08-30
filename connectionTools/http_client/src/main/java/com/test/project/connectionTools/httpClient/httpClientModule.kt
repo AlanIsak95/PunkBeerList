@@ -8,7 +8,7 @@ val httpClientModule = module {
     /* */
     single {
         RetrofitBuilderObject(
-            baseUrl = "https://randomuser.me/",
+            baseUrl = "https://api.punkapi.com/v2/"
         ).build()
     }
 }

@@ -6,23 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--Toolbar-->
+    <include
+        android:id="@+id/main_fragment_tl_header"
+        layout="@layout/home_material_toolbar_mt_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/main_fragment_pb_progress_indicator"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_height="wrap_content"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_fragment_tl_header" />
 
 
     <Button
         android:id="@+id/main_fragment_bt_try_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="232dp"
         android:text="@string/try_me"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -59,4 +59,7 @@ dependencies {
     androidTestImplementation(AndroidXTesting.JUNIT)
     androidTestImplementation(AndroidXTesting.ESPRESSO_CORE)
 
+    /** GOOGLE */
+    implementation(Google.MATERIAL)
+
 }

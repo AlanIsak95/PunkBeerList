@@ -20,10 +20,10 @@ class GetRandomUserImpl (
 
 
     /** */
-    override suspend fun getRandomUserAsLiveData() =
+    override suspend fun getBeerListByPageAsLiveData() =
         flow<ServiceStatus<String?,GetRandomUserResponseDC>> {
             emit(ServiceStatus.Loading())
-            val getRandomUserCaseResponse = getRandomUserUseCase.getRandomUser()
+            val getRandomUserCaseResponse = getRandomUserUseCase.getBeerListByPage()
             if (getRandomUserCaseResponse.failure.isNullOrBlank())
                 emit(ServiceStatus.Done(getRandomUserCaseResponse))
             else

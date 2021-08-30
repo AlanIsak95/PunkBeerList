@@ -35,4 +35,16 @@ class HomeActivity : AppCompatActivity() {
         navController.setGraph(navGraph, intent.extras)
     }
 
+    //todo agregar alerta de cierre
+    /** */
+  //  override fun onBackPressed() {
+//        if (navController.currentDestination?.id == R.id.loginFragment || navController.currentDestination?.id == R.id.checkInConfirmationFragment)
+//            finish()
+//        else navController.popBackStack()
+ //   }
+
+
+
+
+
 }

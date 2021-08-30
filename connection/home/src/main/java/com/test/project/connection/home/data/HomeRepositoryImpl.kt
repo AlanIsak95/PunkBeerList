@@ -39,8 +39,7 @@ internal class HomeRepositoryImpl (
             try {
                 emit(
                     arrayListOf(PersonToPresentation.toDomainEntity(
-                    listOfDataEntity.first()
-                     )
+                    listOfDataEntity.first())
                     )
                 )
 

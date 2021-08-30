@@ -5,6 +5,7 @@ import com.test.project.connection.home.data.dataSource.IHomeLocalDataSource
 import com.test.project.connection.home.domain.use_case.login.LoginUseCaseParams
 import com.test.project.connectionTools.database.AppDataBase
 import com.test.project.connectionTools.database.entities.Person
+import com.test.project.resources.presentation.extensions.toBase64
 
 internal class HomeLocalDataSourceImpl (
     private val db: AppDataBase
@@ -19,7 +20,7 @@ internal class HomeLocalDataSourceImpl (
         db.personDao().insertPerson(user)
 
     override suspend fun validateDataForLogin(params: LoginUseCaseParams):List<Person> =
-        db.personDao().validateDataForLogin(user = params.name , password = params.password)
+        db.personDao().validateDataForLogin(user = params.name , password = params.password.toBase64())
 
 
 }

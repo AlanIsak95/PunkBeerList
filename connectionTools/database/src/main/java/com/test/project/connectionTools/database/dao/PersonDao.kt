@@ -16,10 +16,10 @@ interface PersonDao {
     //endregion
 
     //region READ
-    @Query("SELECT * FROM person_tbl")
+    @Query("SELECT * FROM Usuarios")
     fun getAll(): LiveData<List<Person>>
 
-    @Query("SELECT * FROM person_tbl WHERE name = :user AND password = :password")
+    @Query("SELECT * FROM Usuarios WHERE name = :user AND password = :password")
     fun validateDataForLogin(
         user:String,
         password:String

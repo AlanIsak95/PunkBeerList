@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.test.project.connection.home.data.dataSource.local.models.PersonToPresentation
 import com.test.project.connection.home.domain.use_case.insert_user.InsertUserUseCaseParams
 import com.test.project.connection.home.domain.use_case.login.LoginUseCaseParams
+import com.test.project.home.R
 import com.test.project.home.databinding.LoginFragmentBinding
 import com.test.project.resources.presentation.extensions.toBase64
 import com.test.project.resources.presentation.message.snackBar.showSnackbar
@@ -20,7 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginFragment : Fragment() {
 
     /* */
-    private val binding : LoginFragmentBinding
+    private val binding: LoginFragmentBinding
             by lazy { LoginFragmentBinding.inflate(layoutInflater) }
 
     /* */
@@ -38,13 +41,16 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         insertInitialUser()
         setUpAction()
+        setUpListeners()
     }
 
+    /** */
     private fun insertInitialUser() {
-        lifecycleScope.launch(Dispatchers.IO){
-                loginViewModel.insertUser(InsertUserUseCaseParams(
+        lifecycleScope.launch(Dispatchers.IO) {
+            loginViewModel.insertUser(
+                InsertUserUseCaseParams(
                     name = "Alan",
-                    password = "hola123"
+                    password = "hola123".toBase64()
                 )
             )
         }
@@ -64,15 +70,58 @@ class LoginFragment : Fragment() {
             password = loginFragmentTilPassword.editText?.text.toString()
         }
 
-        if (name.isNotBlank() && password.isNotBlank())
-             executeLogin(name,password)
-//        else
-//            showTilError()
+        when {
+            (name.isNotBlank() && password.isNotBlank()) -> {
+
+                showTilError(
+                    userErrorTil = false,
+                    passwordErrorTil = false
+                )
+                executeLogin(name, password)
+
+            }
+
+            (name.isBlank() && password.isBlank()) ->
+                showTilError(
+                    userErrorTil = true,
+                    passwordErrorTil = true
+                )
+
+            name.isBlank() ->
+                showTilError(
+                    userErrorTil = true,
+                    passwordErrorTil = false
+                )
+
+            password.isBlank() ->
+                showTilError(
+                    userErrorTil = false,
+                    passwordErrorTil = true
+                )
+
+        }
+
 
     }
 
+    /** */
+    private fun showTilError(
+        userErrorTil: Boolean,
+        userTilText: String = "campos vacíos",
+        passwordErrorTil: Boolean,
+        passwordTilText: String = "campos vacíos"
+    ) {
+
+        binding.apply {
+            loginFragmentTilName.error = if (userErrorTil) userTilText else null
+            loginFragmentTilPassword.error = if (passwordErrorTil) passwordTilText else null
+        }
+
+    }
+
+    /** */
     private fun executeLogin(name: String, password: String) {
-        lifecycleScope.launch(){
+        lifecycleScope.launch {
             loginViewModel.validateDataForLogin(
                 LoginUseCaseParams(
                     name = name,
@@ -82,19 +131,39 @@ class LoginFragment : Fragment() {
         }
     }
 
+    /** */
     private fun loginResponse() = Observer<ArrayList<PersonToPresentation?>> {
         try {
             if (it.isNotEmpty())
-                if (it.first() != null){
-                    showSnackbar("TRUE TRUE")
-                }else{
-                    showSnackbar("FALSE FALSE")
+                if (it.first() != null) {
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                } else {
+                    showTilError(
+                        userErrorTil = true,
+                        passwordErrorTil = true,
+                        userTilText = "Validar Usuario",
+                        passwordTilText = "Validar Contraseña"
+                    )
                 }
             else
-                showSnackbar("sin error Login False")
-        }catch (e : Exception){
+                showSnackbar("Error")
+        } catch (e: Exception) {
             showSnackbar("Error ${e.message}")
         }
+    }
+
+    /** */
+    private fun setUpListeners() {
+
+        binding.apply {
+            loginFragmentTilName.editText?.addTextChangedListener {
+                loginFragmentTilName.error = null
+            }
+            loginFragmentTilPassword.editText?.addTextChangedListener {
+                loginFragmentTilPassword.error = null
+            }
+        }
+
     }
 
 }

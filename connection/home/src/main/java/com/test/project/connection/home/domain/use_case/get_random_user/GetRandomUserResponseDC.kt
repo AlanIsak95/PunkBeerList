@@ -5,4 +5,4 @@ import com.test.project.connection.home.domain.entity.get_random_user.GetRandomU
 data class GetRandomUserResponseDC(
     val user: GetRandomUserResponse? = null,
     val failure : String? = null
-    )
+)

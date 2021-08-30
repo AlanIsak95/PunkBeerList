@@ -9,4 +9,9 @@
     <string name="email">Email:</string>
     <string name="phone">Phone:</string>
 
+    <string name="nameTil">Nombre</string>
+    <string name="passwordTil">Contraseña</string>
+    <string name="loginBtn">Login</string>
+
+
 </resources>

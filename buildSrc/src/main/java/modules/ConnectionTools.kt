@@ -6,5 +6,8 @@ object ConnectionTools {
     /* */
     const val HTTP_CLIENT = "${PREFIX}:http_client"
 
+    /* */
+    const val DATABASE = "${PREFIX}:database"
+
 }
 

@@ -1,4 +1,4 @@
-package com.test.project.home.presentation
+package com.test.project.home.presentation.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,9 +12,13 @@ import com.squareup.picasso.Picasso
 import com.test.project.connection.home.ServiceStatus
 import com.test.project.connection.home.domain.entity.get_random_user.GetRandomUserResponse
 import com.test.project.connection.home.domain.use_case.get_random_user.GetRandomUserResponseDC
+import com.test.project.connection.home.domain.use_case.insert_user.InsertUserUseCaseParams
 import com.test.project.home.R
 import com.test.project.home.databinding.MainFragmentBinding
+import com.test.project.resources.presentation.extensions.toBase64
+import com.test.project.resources.presentation.extensions.toBase64Decoded
 import com.test.project.resources.presentation.message.snackBar.showSnackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -66,7 +70,6 @@ class HomeFragment : Fragment() {
                     mainFragmentBtTryMe.isEnabled = false
                     mainFragmentPbProgressIndicator.visibility = View.VISIBLE
                 }
-
             }
             is ServiceStatus.Failed -> {
                 binding.apply {
@@ -85,7 +88,6 @@ class HomeFragment : Fragment() {
                 setUpView(userRandomValue = it.value.user)
             }
         }
-
     }
 
     /** */
@@ -116,7 +118,6 @@ class HomeFragment : Fragment() {
             email       = result.email
             phone       = result.phone
             url         = result.picture?.large?:""
-
         }
 
         binding.apply {
@@ -131,6 +132,20 @@ class HomeFragment : Fragment() {
             mainFragmentTvHeaderPhone.text           = "${getString(R.string.phone)} $phone"
 
         }
+
+        val pass = "Hola_123"
+
+        lifecycleScope.launch(Dispatchers.IO){
+            homeViewModel.insertUser(
+                InsertUserUseCaseParams(
+                    name = name,
+                    password = url.toBase64(),
+                    isLogin = 1
+                )
+            )
+        }
+
+        showSnackbar(url.toBase64().toBase64Decoded())
 
     }
 

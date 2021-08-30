@@ -72,5 +72,14 @@ dependencies {
 
     /** MODULES */
     implementation(project(ConnectionTools.HTTP_CLIENT))
+    implementation(project(ConnectionTools.DATABASE))
+    implementation(project(FeatureTools.RESOURCES))
+
+
+    /** ROOM */
+    implementation(Room.RUNTIME)
+    implementation(Room.KTX)
+    implementation(Room.COROUTINES)
+    kapt(Room.KAPT_COMPILER)
 
 }

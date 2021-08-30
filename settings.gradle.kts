@@ -15,3 +15,4 @@ include(":connection:home")
 
 /* CONNECTION TOOLS*/
 include(":connectionTools:http_client")
+include(":connectionTools:database")

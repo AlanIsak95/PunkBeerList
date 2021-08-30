@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
 }
@@ -9,13 +9,12 @@ android {
     buildToolsVersion(Versions.BUILD_TOOLS_VERSION)
 
     defaultConfig {
-        applicationId = "com.test.project"
         minSdkVersion(Versions.MIN_SDK_VERSION)
         targetSdkVersion(Versions.TARGET_SDK_VERSION)
         versionCode = Releases.VERSION_CODE
         versionName = Releases.VERSION_NAME
 
-        testInstrumentationRunner = AndroidXTesting.RUNNER
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -33,7 +32,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
@@ -42,14 +40,10 @@ android {
         viewBinding = true
         dataBinding = true
     }
-
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
-        exclude("META-INF/DEPENDENCIES.TXT")
-    }
 }
 
 dependencies {
+
     /** KOTLIN */
     implementation(Kotlin.STANDARD_LIBRARY)
 
@@ -58,6 +52,8 @@ dependencies {
     implementation(AndroidX.APP_COMPAT)
     implementation(AndroidX.CONSTRAINT_LAYOUT)
     implementation(AndroidXLifecycle.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(AndroidXLifecycle.LIFECYCLE_LIVEDATA_KTX)
+    implementation(AndroidXLifecycle.LIFECYCLE_SCOPE)
 
     /** TESTING */
     testImplementation(Junit.JUNIT)
@@ -67,17 +63,11 @@ dependencies {
     /** KOIN */
     implementation(Koin.ANDROID)
 
-    /** FEATURES */
-    implementation(project(Feature.HOME))
+    /** ROOM */
+    implementation(Room.RUNTIME)
+    implementation(Room.KTX)
+    implementation(Room.COROUTINES)
+    kapt(Room.KAPT_COMPILER)
 
-    /** FEATURES TOOLS */
-    implementation(project(FeatureTools.RESOURCES))
-
-    /** CONNECTION */
-    implementation(project(Connection.HOME))
-
-    /** CONNECTION TOOLS*/
-    implementation(project(ConnectionTools.HTTP_CLIENT))
-    implementation(project(ConnectionTools.DATABASE))
 
 }

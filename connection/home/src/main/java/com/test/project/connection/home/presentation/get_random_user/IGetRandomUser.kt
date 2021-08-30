@@ -1,4 +1,4 @@
-package com.test.project.connection.home.presentation
+package com.test.project.connection.home.presentation.get_random_user
 
 import androidx.lifecycle.LiveData
 import com.test.project.connection.home.ServiceStatus
@@ -10,6 +10,6 @@ interface IGetRandomUser {
     var getRandomUserResponse : GetRandomUserResponseDC
 
     /** */
-    fun getRandomUserAsLiveData():LiveData<ServiceStatus<String?, GetRandomUserResponseDC>>
+    suspend fun getRandomUserAsLiveData():LiveData<ServiceStatus<String?, GetRandomUserResponseDC>>
 
 }

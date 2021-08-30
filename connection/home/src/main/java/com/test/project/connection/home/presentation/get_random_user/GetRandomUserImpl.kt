@@ -1,4 +1,4 @@
-package com.test.project.connection.home.presentation
+package com.test.project.connection.home.presentation.get_random_user
 
 import androidx.lifecycle.*
 import com.test.project.connection.home.ServiceStatus
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 class GetRandomUserImpl (
     private val getRandomUserUseCase: GetRandomUserUseCase
-) : IGetRandomUser{
+) : IGetRandomUser {
 
     /*
      -usar solo cuando se necesite usar la info en varios lados pero no es necesario guardar en DB
@@ -20,7 +20,7 @@ class GetRandomUserImpl (
 
 
     /** */
-    override fun getRandomUserAsLiveData() =
+    override suspend fun getRandomUserAsLiveData() =
         flow<ServiceStatus<String?,GetRandomUserResponseDC>> {
             emit(ServiceStatus.Loading())
             val getRandomUserCaseResponse = getRandomUserUseCase.getRandomUser()

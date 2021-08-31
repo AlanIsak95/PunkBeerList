@@ -11,8 +11,9 @@ val homeModule = module {
     /* */
     viewModel {
         HomeViewModel(
-            getRandomUser = get(),
-            IGetInsertUser = get()
+            getBeerList = get(),
+            iGetInsertUser = get(),
+            iGetInsertFavorite = get()
         )
     }
 

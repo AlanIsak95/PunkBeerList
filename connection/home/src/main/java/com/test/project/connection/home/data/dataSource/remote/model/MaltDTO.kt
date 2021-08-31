@@ -1,6 +1,6 @@
 package com.test.project.connection.home.data.dataSource.remote.model
 
-import com.test.project.connection.home.domain.entity.get_random_user.Malt
+import com.test.project.connection.home.domain.entity.get_beer_list.Malt
 
 data class MaltDTO(
     val amount: AmountDTOX?,

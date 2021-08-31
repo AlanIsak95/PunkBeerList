@@ -4,17 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.test.project.connectionTools.database.dao.FavoriteDao
 import com.test.project.connectionTools.database.dao.PersonDao
+import com.test.project.connectionTools.database.entities.Favorite
 import com.test.project.connectionTools.database.entities.Person
 
 /* */
 @Database(
-    entities = [Person::class],
+    entities = [
+        Person::class,
+        Favorite::class
+               ],
     version = 1
 )
 abstract class AppDataBase : RoomDatabase() {
 
+    /** */
     abstract fun personDao(): PersonDao
+
+    /** */
+    abstract fun favoriteDao(): FavoriteDao
 
     /** */
     companion object {

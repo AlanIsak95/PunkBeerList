@@ -1,12 +1,15 @@
 package com.test.project.home.presentation.home
 
 import androidx.lifecycle.ViewModel
-import com.test.project.connection.home.presentation.get_random_user.IGetRandomUser
+import com.test.project.connection.home.presentation.get_beer_list.IGetBeerList
+import com.test.project.connection.home.presentation.insert_favorite.IGetInsertFavorite
 import com.test.project.connection.home.presentation.insert_user.IGetInsertUser
 
 class HomeViewModel(
-    getRandomUser : IGetRandomUser,
-    IGetInsertUser : IGetInsertUser
+    getBeerList : IGetBeerList,
+    iGetInsertUser : IGetInsertUser,
+    iGetInsertFavorite: IGetInsertFavorite
 ) : ViewModel(),
-    IGetRandomUser by getRandomUser,
-    IGetInsertUser by IGetInsertUser
+    IGetBeerList by getBeerList,
+    IGetInsertUser by iGetInsertUser,
+    IGetInsertFavorite by iGetInsertFavorite

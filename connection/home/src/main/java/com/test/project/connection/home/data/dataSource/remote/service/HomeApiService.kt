@@ -18,7 +18,7 @@ private object URL {
     /* */
     const val BEER = "beers"
     /* */
-    const val PER_PAGE = 25
+    const val PER_PAGE = 10
 }
 
 }

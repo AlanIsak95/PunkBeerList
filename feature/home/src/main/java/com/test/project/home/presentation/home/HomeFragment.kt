@@ -8,17 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.squareup.picasso.Picasso
 import com.test.project.connection.home.ServiceStatus
-import com.test.project.connection.home.domain.entity.get_random_user.BeerResponseItem
-import com.test.project.connection.home.domain.use_case.get_random_user.GetRandomUserResponseDC
-import com.test.project.connection.home.domain.use_case.insert_user.InsertUserUseCaseParams
-import com.test.project.home.R
+import com.test.project.connection.home.domain.entity.get_beer_list.BeerResponseItem
+import com.test.project.connection.home.domain.use_case.get_beer_list.GetBeerListResponseDC
+import com.test.project.connection.home.domain.use_case.insert_favorite.InsertFavoriteUseCaseParams
 import com.test.project.home.databinding.MainFragmentBinding
-import com.test.project.resources.presentation.extensions.toBase64
-import com.test.project.resources.presentation.extensions.toBase64Decoded
+import com.test.project.home.presentation.home.adapter.HomeFragmentAdapter
 import com.test.project.resources.presentation.message.snackBar.showSnackbar
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,9 +24,11 @@ class HomeFragment : Fragment() {
     private val binding :MainFragmentBinding
             by lazy { MainFragmentBinding.inflate(layoutInflater) }
 
-
     /* */
     private val homeViewModel: HomeViewModel by viewModel()
+
+    /* */
+    private lateinit var homeFragmentAdapter :HomeFragmentAdapter
 
 
     /** */
@@ -44,7 +42,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpToolBar()
-        setUpAction()
+        executeService()
+    //setUpAction()
     }
 
     /** */
@@ -66,9 +65,7 @@ class HomeFragment : Fragment() {
 
     /** */
     private fun setUpAction() {
-        binding.mainFragmentBtTryMe.setOnClickListener {
-            executeService()
-        }
+
     }
 
     /** */
@@ -80,27 +77,23 @@ class HomeFragment : Fragment() {
     }
 
     /** */
-    private fun getService() = Observer<ServiceStatus<String?,GetRandomUserResponseDC>> {
+    private fun getService() = Observer<ServiceStatus<String?,GetBeerListResponseDC>> {
         when (it) {
             is ServiceStatus.Loading ->{
                 binding.apply {
-                    mainFragmentCvGeneralContainer.visibility = View.GONE
-                    mainFragmentBtTryMe.isEnabled = false
                     mainFragmentPbProgressIndicator.visibility = View.VISIBLE
                 }
             }
             is ServiceStatus.Failed -> {
                 binding.apply {
-                    mainFragmentCvGeneralContainer.visibility = View.GONE
-                    mainFragmentBtTryMe.isEnabled = true
+                    mainFragmentRvBeerContainer.visibility = View.GONE
                     mainFragmentPbProgressIndicator.visibility = View.INVISIBLE
                 }
                 showSnackbar(it.failure.toString())
             }
             is ServiceStatus.Done ->{
                 binding.apply {
-                    mainFragmentCvGeneralContainer.visibility = View.VISIBLE
-                    mainFragmentBtTryMe.isEnabled = true
+                    mainFragmentRvBeerContainer.visibility = View.VISIBLE
                     mainFragmentPbProgressIndicator.visibility = View.INVISIBLE
                 }
                 setUpView(userRandomValue = it.value.listBeer)
@@ -112,59 +105,32 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setUpView(userRandomValue: List<BeerResponseItem?>?) {
 
-        var name = ""
-//        var gender = ""
-//        var age = ""
-//        var street: String
-//        var city: String
-//        var country: String
-//        var postCode: String
-//        var location = ""
-//        var email = ""
-//        var phone = ""
-//        var url = ""
-//
-//        userRandomValue?.results?.first()?.let { result ->
-//            name        = " ${result.name?.title} ${result.name?.first} ${result.name?.last}"
-//            gender      = result.gender
-//            age         = result.dob?.age.toString()
-//            street      ="${result.location?.street?.number}, ${result.location?.street?.name}"
-//            city        = result.location?.city?:"unknown"
-//            country     = result.location?.country?:"unknown"
-//            postCode    = result.location?.postcode.toString()
-//            location    = "$street, $city, $country, $postCode"
-//            email       = result.email
-//            phone       = result.phone
-//            url         = result.picture?.large?:""
-//        }
-//
-//        binding.apply {
-//
-//            Picasso.with(context).load(url).into(mainFragmentIvHeaderIcon)
-//
-//            mainFragmentTvHeaderName.text            = "${getString(R.string.name)} $name"
-//            mainFragmentTvHeaderGender.text          = "${getString(R.string.gender)} $gender"
-//            mainFragmentTvHeaderAge.text             = "${getString(R.string.age)} $age"
-//            mainFragmentTvHeaderLocationDetail.text  =  location
-//            mainFragmentTvHeaderEmail.text           = "${getString(R.string.email)} $email"
-//            mainFragmentTvHeaderPhone.text           = "${getString(R.string.phone)} $phone"
-//
-//        }
-//
-//        val pass = "Hola_123"
-//
-//        lifecycleScope.launch(Dispatchers.IO){
-//            homeViewModel.insertUser(
-//                InsertUserUseCaseParams(
-//                    name = name,
-//                    password = url.toBase64(),
-//                    isLogin = 1
-//                )
-//            )
-//        }
-//
-//        showSnackbar(url.toBase64().toBase64Decoded())
+        homeFragmentAdapter = HomeFragmentAdapter(
+            context = requireContext(),
+            onBeerClicked = onBeerClicked
+        )
+
+        binding.mainFragmentRvBeerContainer.adapter = homeFragmentAdapter
+        homeFragmentAdapter.submitList(userRandomValue)
 
     }
+
+
+    /** */
+    private val onBeerClicked: (BeerResponseItem)  -> Unit = {
+
+        lifecycleScope.launch{
+            homeViewModel.insertFavorite(InsertFavoriteUseCaseParams(
+                id = it.id!!,
+                name = it.name?:"",
+                contributedBy = it.contributed_by?:"",
+                rateValue = 0.0,
+                imageUrl = it.image_url?:"",
+            ))
+        }
+
+
+    }
+
 
 }

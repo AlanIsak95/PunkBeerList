@@ -1,4 +1,4 @@
-package com.test.project.connection.home.domain.entity.get_random_user
+package com.test.project.connection.home.domain.entity.get_beer_list
 
 data class Method(
     val fermentation: Fermentation?,

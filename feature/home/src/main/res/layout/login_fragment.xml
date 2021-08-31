@@ -22,9 +22,12 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375">
+        app:layout_constraintVertical_bias="0.375"
+        android:textColorHint="@color/alto"
+        app:boxStrokeColor="@color/cardview_dark_background">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -43,9 +46,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_fragment_til_name"
         app:passwordToggleEnabled="true"
-        app:endIconCheckable="false">
+        app:passwordToggleTint="@color/black"
+        app:endIconCheckable="false"
+        android:textColorHint="@color/alto"
+        app:boxStrokeColor="@color/cardview_dark_background">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:textColor="@color/black"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -54,7 +61,7 @@
 
     <Button
         android:id="@+id/login_fragment_btn_login"
-        style="?attr/materialButtonOutlinedStyle"
+        style="?attr/materialButtonToggleGroupStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_size_36"

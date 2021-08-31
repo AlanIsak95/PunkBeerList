@@ -1,6 +1,6 @@
 package com.test.project.connection.home.data.dataSource.remote.model
 
-import com.test.project.connection.home.domain.entity.get_random_user.BeerResponseItem
+import com.test.project.connection.home.domain.entity.get_beer_list.BeerResponseItem
 
 data class BeerResponseItemDTO(
     val abv: Double?,

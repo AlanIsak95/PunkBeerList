@@ -29,4 +29,10 @@ internal class HomeLocalDataSourceImpl (
         db.favoriteDao().insertFavorite(favorite)
     }
 
+    /** */
+    override suspend fun getAllFavorites(): List<Favorite> =
+        db.favoriteDao().getAllFavorites()
+
+
+
 }

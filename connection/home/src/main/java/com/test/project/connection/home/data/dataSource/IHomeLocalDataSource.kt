@@ -19,4 +19,7 @@ interface IHomeLocalDataSource {
     /** */
     suspend fun insertFavorite(favorite : Favorite)
 
+    /** */
+    suspend fun getAllFavorites():List<Favorite>
+
 }

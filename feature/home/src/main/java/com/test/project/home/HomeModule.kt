@@ -18,6 +18,11 @@ val homeModule = module {
     }
 
     /* */
-    viewModel {LoginViewModel(iGetLogin = get(),get())  }
+    viewModel {
+        LoginViewModel(
+            iGetLogin = get(),
+            iGetInsertUser = get()
+        )
+    }
 
 }

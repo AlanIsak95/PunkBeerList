@@ -7,10 +7,13 @@ import com.test.project.connection.home.data.dataSource.local.HomeLocalDataSourc
 import com.test.project.connection.home.data.dataSource.remote.HomeRemoteDataSourceImpl
 import com.test.project.connection.home.data.dataSource.remote.service.HomeApiService
 import com.test.project.connection.home.domain.IHomeRepository
+import com.test.project.connection.home.domain.use_case.get_all_favorites.GetFavoriteListUserCase
 import com.test.project.connection.home.domain.use_case.get_beer_list.GetBeerListUserUseCase
 import com.test.project.connection.home.domain.use_case.insert_favorite.InsertFavoriteUseCase
 import com.test.project.connection.home.domain.use_case.insert_user.InsertUserUseCase
 import com.test.project.connection.home.domain.use_case.login.LoginUseCase
+import com.test.project.connection.home.presentation.get_all_favorites.GetAllFavoritesImpl
+import com.test.project.connection.home.presentation.get_all_favorites.IGetAllFavorites
 import com.test.project.connection.home.presentation.get_beer_list.GetBeerListImpl
 import com.test.project.connection.home.presentation.get_beer_list.IGetBeerList
 import com.test.project.connection.home.presentation.insert_favorite.GetInsertFavoriteImpl
@@ -30,6 +33,7 @@ val homeModule = module {
     single <IGetInsertUser>{ GetIGetInsertUserImpl(insertUserUseCase = get()) }
     single <IGetLogin>{ GetLoginImpl(loginUseCase = get()) }
     single <IGetInsertFavorite>{ GetInsertFavoriteImpl(insertFavoriteUseCase = get()) }
+    single <IGetAllFavorites>{ GetAllFavoritesImpl(getFavoriteListUserCase = get()) }
 
 
     /* USE CASE*/
@@ -37,6 +41,7 @@ val homeModule = module {
     factory { InsertUserUseCase( repository = get() ) }
     factory { LoginUseCase( repository = get() ) }
     factory { InsertFavoriteUseCase( repository = get() ) }
+    factory { GetFavoriteListUserCase( repository = get() ) }
 
     /** REPOSITORY */
     single<IHomeRepository> {

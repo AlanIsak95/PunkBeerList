@@ -15,7 +15,7 @@ interface FavoriteDao {
 
     //region READ
     @Query("SELECT * FROM Favoritos")
-    fun getAllFavorites(): LiveData<List<Favorite>>
+    fun getAllFavorites(): List<Favorite>
 
     //endregion
 

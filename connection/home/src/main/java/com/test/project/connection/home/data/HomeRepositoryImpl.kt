@@ -55,5 +55,9 @@ internal class HomeRepositoryImpl (
         localDataSource.insertFavorite(favorite)
     }
 
+    override suspend fun getAllFavorites(): List<Favorite> =
+        localDataSource.getAllFavorites()
+
+
 
 }

@@ -44,13 +44,25 @@ class LoginFragment : Fragment() {
         setUpListeners()
     }
 
+//    /** */
+//    private fun insertInitialUser() {
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            loginViewModel.insertUser(
+//                InsertUserUseCaseParams(
+//                    name = "InterCam",
+//                    password = "inter95".toBase64()
+//                )
+//            )
+//        }
+//    }
+
     /** */
     private fun insertInitialUser() {
         lifecycleScope.launch(Dispatchers.IO) {
             loginViewModel.insertUser(
                 InsertUserUseCaseParams(
-                    name = "Alan",
-                    password = "hola123".toBase64()
+                    name = "1",
+                    password = "1".toBase64()
                 )
             )
         }

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
 import com.test.project.home.databinding.BeerDetailFragmentBinding
 import com.test.project.home.presentation.beer_detail.adapter.BeerDetailStringAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BeerDetailFragment : Fragment() {
 
@@ -21,8 +20,7 @@ class BeerDetailFragment : Fragment() {
     private val binding : BeerDetailFragmentBinding
             by lazy { BeerDetailFragmentBinding.inflate(layoutInflater) }
 
-    /* */
-    private val beerDetailViewModel: BeerDetailViewModel by viewModel()
+
 
     private lateinit var pairingAdapter : BeerDetailStringAdapter
 

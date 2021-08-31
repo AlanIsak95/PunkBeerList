@@ -13,7 +13,7 @@ interface IHomeRepository {
     /**REMOTE*/
 
     /** */
-    suspend fun getBeerListByPage() : GetBeerListResponseDC
+    suspend fun getBeerListByPage(page : Int) : GetBeerListResponseDC
 
 
 

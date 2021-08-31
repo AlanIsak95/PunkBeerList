@@ -41,14 +41,17 @@
             android:contentDescription="@null"
             tools:tint="@color/black" />
 
-
         <TextView
             android:id="@+id/item_home_fragment_view_holder_tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/dimen_size_16"
             android:layout_marginStart="@dimen/dimen_size_16"
+            android:layout_marginTop="@dimen/dimen_size_16"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            app:layout_constraintEnd_toStartOf="@+id/item_home_fragment_view_holder_iv_favorite"
             app:layout_constraintStart_toEndOf="@+id/item_home_fragment_view_holder_iv_beer"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
@@ -63,6 +66,31 @@
             app:layout_constraintStart_toEndOf="@+id/item_home_fragment_view_holder_iv_beer"
             app:layout_constraintTop_toBottomOf="@+id/item_home_fragment_view_holder_tv_title"
             tools:text="Sibtitle" />
+
+        <TextView
+            android:id="@+id/item_home_fragment_view_holder_tv_favorite_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/amazon"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/item_home_fragment_view_holder_tv_subtitle"
+            app:layout_constraintTop_toBottomOf="@+id/item_home_fragment_view_holder_tv_subtitle"
+            android:text="" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/item_home_fragment_view_holder_iv_favorite_status"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_marginTop="@dimen/dimen_size_02"-->
+<!--            android:layout_width="@dimen/dimen_size_10"-->
+<!--            android:layout_height="@dimen/dimen_size_10"-->
+<!--            android:layout_marginStart="@dimen/dimen_size_02"-->
+<!--            android:src="@drawable/ic_favorite_selected"-->
+<!--            android:tint="@color/amazon"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/item_home_fragment_view_holder_tv_favorite_status"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/item_home_fragment_view_holder_tv_subtitle"-->
+<!--            android:contentDescription="@null" />-->
+
 
         <ImageView
             android:id="@+id/item_home_fragment_view_holder_iv_favorite"

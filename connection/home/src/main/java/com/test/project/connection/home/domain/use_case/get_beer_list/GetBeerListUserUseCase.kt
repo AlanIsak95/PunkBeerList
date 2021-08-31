@@ -5,6 +5,6 @@ import com.test.project.connection.home.domain.IHomeRepository
 class GetBeerListUserUseCase(
     private val repository: IHomeRepository
 ) {
-     suspend fun getBeerListByPage() = repository.getBeerListByPage()
+     suspend fun getBeerListByPage(page : Int) = repository.getBeerListByPage(page)
 }
 

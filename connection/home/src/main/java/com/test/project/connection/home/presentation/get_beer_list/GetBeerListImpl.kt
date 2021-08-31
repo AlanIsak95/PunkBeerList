@@ -20,10 +20,10 @@ class GetBeerListImpl (
 
 
     /** */
-    override suspend fun getBeerListByPageAsLiveData() =
+    override suspend fun getBeerListByPageAsLiveData(page : Int) =
         flow<ServiceStatus<String?,GetBeerListResponseDC>> {
             emit(ServiceStatus.Loading())
-            val getRandomUserCaseResponse = getBeerListUserUseCase.getBeerListByPage()
+            val getRandomUserCaseResponse = getBeerListUserUseCase.getBeerListByPage(page = page)
             if (getRandomUserCaseResponse.failure.isNullOrBlank())
                 emit(ServiceStatus.Done(getRandomUserCaseResponse))
             else

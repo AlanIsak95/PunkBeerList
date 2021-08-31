@@ -12,10 +12,10 @@ internal class HomeRemoteDataSourceImpl(
 
     // TODO: 27/08/2021 change implementation
 
-    override suspend fun getBeerListByPage(): GetBeerListResponseDC =
+    override suspend fun getBeerListByPage(page : Int): GetBeerListResponseDC =
         try {
             GetBeerListResponseDC(listBeer = retrofitApiCall {
-                apiService.getBeerListByPage(page = 1)
+                apiService.getBeerListByPage(page = page)
             }.toEntity())
         }catch (e: Exception){
             GetBeerListResponseDC(null,"parcelable error : ${e.message}")

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.test.project.connection.home.ServiceStatus
 import com.test.project.connection.home.domain.entity.get_beer_list.BeerResponseItem
 import com.test.project.connection.home.domain.use_case.get_beer_list.GetBeerListResponseDC
@@ -39,6 +40,8 @@ class HomeFragment : Fragment() {
     private var currentPage = 1
     private var maxPage = 10
 
+    private var userRandomValueList : MutableList<BeerResponseItem?>? = ArrayList()
+
 
     /** */
     override fun onCreateView(
@@ -52,9 +55,34 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpToolBar()
         activityReference = activity as HomeActivity
-       if (activityReference.getValue())
-            executeService()
-    //setUpAction()
+       if (activityReference.getValue()){
+           executeService(currentPage)
+           setUpListeners()
+       }
+
+    }
+
+    /** */
+    private fun setUpListeners() {
+
+        homeFragmentAdapter = HomeFragmentAdapter(
+            context = requireContext(),
+            onBeerClicked = onBeerClicked,
+            onCardClicked = onCardClicked
+        )
+
+        binding.mainFragmentRvBeerContainer.adapter = homeFragmentAdapter
+
+        binding.mainFragmentRvBeerContainer.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)){
+                    currentPage += 1
+                    executeService(currentPage)
+                }
+            }
+
+        })
     }
 
     /** */
@@ -64,7 +92,7 @@ class HomeFragment : Fragment() {
             homeMaterialToolbarMtHeader.setNavigationOnClickListener {
                 this@HomeFragment.requireActivity().onBackPressed()
             }
-            homeMaterialToolbarTvTitle.text = "Lista de Cervezas"
+            homeMaterialToolbarTvTitle.text = "Beer List"
             homeMaterialToolbarIvFavorites.setOnClickListener(::navigateToFavoriteFragment )
         }
     }
@@ -80,9 +108,9 @@ class HomeFragment : Fragment() {
     }
 
     /** */
-    private fun executeService() {
+    private fun executeService(page : Int) {
         lifecycleScope.launch {
-            homeViewModel.getBeerListByPageAsLiveData()
+            homeViewModel.getBeerListByPageAsLiveData(page = page)
                 .observe(viewLifecycleOwner, getService())
         }
     }
@@ -116,14 +144,15 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setUpView(userRandomValue: List<BeerResponseItem?>?) {
 
-        homeFragmentAdapter = HomeFragmentAdapter(
-            context = requireContext(),
-            onBeerClicked = onBeerClicked,
-            onCardClicked = onCardClicked
-        )
+        val oldValue = userRandomValueList?.size?:0
 
-        binding.mainFragmentRvBeerContainer.adapter = homeFragmentAdapter
-        homeFragmentAdapter.submitList(userRandomValue)
+        if (userRandomValue != null) {
+            userRandomValueList?.addAll(userRandomValue)
+        }
+
+        homeFragmentAdapter.notifyItemRangeInserted(oldValue,userRandomValueList?.size?:0)
+
+        homeFragmentAdapter.submitList(userRandomValueList)
         activityReference.setValue(false)
 
     }
@@ -132,6 +161,7 @@ class HomeFragment : Fragment() {
     /** */
     private val onBeerClicked: (BeerResponseItem)  -> Unit = {
 
+        showSnackbar("Beer ${it.name} has been added")
         lifecycleScope.launch{
             homeViewModel.insertFavorite(InsertFavoriteUseCaseParams(
                 id = it.id!!,
@@ -141,7 +171,6 @@ class HomeFragment : Fragment() {
                 imageUrl = it.image_url?:"",
             ))
         }
-
 
     }
 

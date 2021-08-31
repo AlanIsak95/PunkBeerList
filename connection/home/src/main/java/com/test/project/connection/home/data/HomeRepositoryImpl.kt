@@ -23,8 +23,8 @@ internal class HomeRepositoryImpl (
 //    private val personListLiveData : LiveData<ArrayList<PersonToPresentation?>> get() = _personListLiveData
 
     /** */
-    override suspend fun getBeerListByPage() : GetBeerListResponseDC =
-        remoteDataSource.getBeerListByPage()
+    override suspend fun getBeerListByPage(page : Int) : GetBeerListResponseDC =
+        remoteDataSource.getBeerListByPage(page = page)
 
     /** */
     override suspend fun getListOfUser(): LiveData<List<Person>> =

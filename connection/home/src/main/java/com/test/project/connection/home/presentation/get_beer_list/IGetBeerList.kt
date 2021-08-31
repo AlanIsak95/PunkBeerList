@@ -10,6 +10,6 @@ interface IGetBeerList {
     var getBeerListResponse : GetBeerListResponseDC
 
     /** */
-    suspend fun getBeerListByPageAsLiveData():LiveData<ServiceStatus<String?, GetBeerListResponseDC>>
+    suspend fun getBeerListByPageAsLiveData(page : Int):LiveData<ServiceStatus<String?, GetBeerListResponseDC>>
 
 }

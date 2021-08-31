@@ -5,6 +5,6 @@ import com.test.project.connection.home.domain.use_case.get_beer_list.GetBeerLis
 internal interface IHomeRemoteDataSource {
 
     /** */
-    suspend fun getBeerListByPage() : GetBeerListResponseDC
+    suspend fun getBeerListByPage(page : Int) : GetBeerListResponseDC
 
 }

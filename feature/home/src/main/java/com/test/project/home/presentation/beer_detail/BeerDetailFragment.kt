@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
+import com.test.project.home.R
 import com.test.project.home.databinding.BeerDetailFragmentBinding
 import com.test.project.home.presentation.beer_detail.adapter.BeerDetailStringAdapter
 
@@ -53,7 +55,13 @@ class BeerDetailFragment : Fragment() {
                 requireActivity().onBackPressed()
             }
             homeMaterialToolbarTvTitle.text = "Beer Detail"
+            homeMaterialToolbarIvFavorites.setOnClickListener(::navigateToFavoriteFragment )
         }
+    }
+
+    /** */
+    private fun navigateToFavoriteFragment(view: View) {
+        findNavController().navigate(R.id.action_beerDetailFragment_to_favoriteFragment)
     }
 
     /** */

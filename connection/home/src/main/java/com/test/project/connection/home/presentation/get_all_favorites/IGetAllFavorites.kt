@@ -1,10 +1,11 @@
 package com.test.project.connection.home.presentation.get_all_favorites
 
-import com.test.project.connectionTools.database.entities.Favorite
+import androidx.lifecycle.LiveData
+import com.test.project.connection.home.data.dataSource.local.models.FavoriteToPresentation
 
 interface IGetAllFavorites {
 
     /** */
-    suspend fun getAllFavorites():List<Favorite>
+    suspend fun getAllFavorites():LiveData<ArrayList<FavoriteToPresentation>>
 
 }

@@ -15,6 +15,7 @@ import com.test.project.connection.home.ServiceStatus
 import com.test.project.connection.home.domain.entity.get_beer_list.BeerResponseItem
 import com.test.project.connection.home.domain.use_case.get_beer_list.GetBeerListResponseDC
 import com.test.project.connection.home.domain.use_case.insert_favorite.InsertFavoriteUseCaseParams
+import com.test.project.home.R
 import com.test.project.home.databinding.MainFragmentBinding
 import com.test.project.home.presentation.HomeActivity
 import com.test.project.home.presentation.home.adapter.HomeFragmentAdapter
@@ -38,7 +39,6 @@ class HomeFragment : Fragment() {
     private lateinit var activityReference : HomeActivity
 
     private var currentPage = 1
-    private var maxPage = 10
 
     private var userRandomValueList : MutableList<BeerResponseItem?>? = ArrayList()
 
@@ -99,13 +99,10 @@ class HomeFragment : Fragment() {
 
     /** */
     private fun navigateToFavoriteFragment(view: View) {
-        //navigate to favorite
+        findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
     }
 
-    /** */
-    private fun setUpAction() {
 
-    }
 
     /** */
     private fun executeService(page : Int) {

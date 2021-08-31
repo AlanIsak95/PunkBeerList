@@ -15,6 +15,8 @@ class HomeActivity : AppCompatActivity() {
         HomeActivityBinding.inflate(layoutInflater)
     }
 
+    private var updateRecycler : Boolean = true
+
     /* */
     private lateinit var navController: NavController
 
@@ -37,11 +39,17 @@ class HomeActivity : AppCompatActivity() {
 
     //todo agregar alerta de cierre
     /** */
-  //  override fun onBackPressed() {
-//        if (navController.currentDestination?.id == R.id.loginFragment || navController.currentDestination?.id == R.id.checkInConfirmationFragment)
-//            finish()
-//        else navController.popBackStack()
- //   }
+    override fun onBackPressed() {
+        if (navController.currentDestination?.id == R.id.loginFragment || navController.currentDestination?.id == R.id.homeFragment)
+            finish()
+       else navController.popBackStack()
+    }
+
+    fun getValue() :Boolean = updateRecycler
+
+    fun setValue(value : Boolean) {
+        updateRecycler = value
+    }
 
 
 

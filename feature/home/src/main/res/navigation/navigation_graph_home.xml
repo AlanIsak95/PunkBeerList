@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph_home"
     app:startDestination="@id/loginFragment">
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.test.project.home.presentation.home.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/main_fragment"/>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.test.project.home.presentation.login.LoginFragment"
@@ -19,5 +15,31 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.test.project.home.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_beerDetailFragment"
+            app:destination="@id/beerDetailFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/beerDetailFragment"
+        android:name="com.test.project.home.presentation.beer_detail.BeerDetailFragment"
+        android:label="beer_detail_fragment"
+        tools:layout="@layout/beer_detail_fragment" >
+
+        <argument
+            android:name="beer"
+            app:argType="com.test.project.connection.home.domain.entity.get_beer_list.BeerResponseItem"
+            app:nullable="true" />
+
+
     </fragment>
 </navigation>

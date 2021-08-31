@@ -2,7 +2,6 @@ package com.test.project.home.presentation.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -18,7 +17,8 @@ class HomeFragmentViewHolder private constructor(
     fun bind(
         beerResponseItem: BeerResponseItem,
         context: Context,
-        onBeerClicked: (BeerResponseItem) -> Unit
+        onBeerClicked: (BeerResponseItem) -> Unit,
+        onCardClicked: (BeerResponseItem) -> Unit
     ) {
         binding.apply {
             itemHomeFragmentViewHolderTvTitle.text = beerResponseItem.name
@@ -27,6 +27,7 @@ class HomeFragmentViewHolder private constructor(
             itemHomeFragmentViewHolderIvFavorite.setOnClickListener {
                 clickRow(onBeerClicked,beerResponseItem)
             }
+            itemHomeFragmentViewHolderCvContainer.setOnClickListener { onCardClicked(beerResponseItem) }
         }
     }
 

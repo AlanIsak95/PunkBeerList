@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath(AndroidTools.BUILD_GRADLE)
         classpath(Kotlin.GRADLE_PLUGIN)
+        classpath(AndroidXNavigation.SAFE_ARGS_GRADLE_PLUGIN)
 
     }
 

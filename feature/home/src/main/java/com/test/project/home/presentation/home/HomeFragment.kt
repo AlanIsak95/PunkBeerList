@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.test.project.connection.home.ServiceStatus
 import com.test.project.connection.home.domain.entity.get_beer_list.BeerResponseItem
 import com.test.project.connection.home.domain.use_case.get_beer_list.GetBeerListResponseDC
 import com.test.project.connection.home.domain.use_case.insert_favorite.InsertFavoriteUseCaseParams
 import com.test.project.home.databinding.MainFragmentBinding
+import com.test.project.home.presentation.HomeActivity
 import com.test.project.home.presentation.home.adapter.HomeFragmentAdapter
 import com.test.project.resources.presentation.message.snackBar.showSnackbar
 import kotlinx.coroutines.launch
@@ -30,6 +33,12 @@ class HomeFragment : Fragment() {
     /* */
     private lateinit var homeFragmentAdapter :HomeFragmentAdapter
 
+    /** */
+    private lateinit var activityReference : HomeActivity
+
+    private var currentPage = 1
+    private var maxPage = 10
+
 
     /** */
     override fun onCreateView(
@@ -42,7 +51,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpToolBar()
-        executeService()
+        activityReference = activity as HomeActivity
+       if (activityReference.getValue())
+            executeService()
     //setUpAction()
     }
 
@@ -60,7 +71,7 @@ class HomeFragment : Fragment() {
 
     /** */
     private fun navigateToFavoriteFragment(view: View) {
-        //navigate
+        //navigate to favorite
     }
 
     /** */
@@ -107,11 +118,13 @@ class HomeFragment : Fragment() {
 
         homeFragmentAdapter = HomeFragmentAdapter(
             context = requireContext(),
-            onBeerClicked = onBeerClicked
+            onBeerClicked = onBeerClicked,
+            onCardClicked = onCardClicked
         )
 
         binding.mainFragmentRvBeerContainer.adapter = homeFragmentAdapter
         homeFragmentAdapter.submitList(userRandomValue)
+        activityReference.setValue(false)
 
     }
 
@@ -129,6 +142,16 @@ class HomeFragment : Fragment() {
             ))
         }
 
+
+    }
+
+    /** */
+    private val onCardClicked: (BeerResponseItem)  -> Unit = {
+
+
+        activityReference.setValue(false)
+        val direction = HomeFragmentDirections.actionHomeFragmentToBeerDetailFragment(beer = it)
+        findNavController().navigate(direction)
 
     }
 

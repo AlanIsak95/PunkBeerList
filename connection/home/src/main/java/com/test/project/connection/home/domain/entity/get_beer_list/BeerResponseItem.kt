@@ -1,9 +1,16 @@
 package com.test.project.connection.home.domain.entity.get_beer_list
 
+import android.os.Parcelable
+import androidx.annotation.Keep
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+
+@Keep
+@Parcelize
 data class BeerResponseItem(
     val abv: Double?,
     val attenuation_level: Double?,
-    val boil_volume: BoilVolume?,
+    val boil_volume: @RawValue BoilVolume?,
     val brewers_tips: String?,
     val contributed_by: String?,
     val description: String?,
@@ -13,13 +20,13 @@ data class BeerResponseItem(
     val ibu: Double?,
     val id: Int?,
     val image_url: String?,
-    val ingredients: Ingredients?,
-    val method: Method?,
+    val ingredients: @RawValue Ingredients?,
+    val method:  @RawValue Method?,
     val name: String?,
     val ph: Double?,
     val srm: Double?,
     val tagline: String?,
     val target_fg: Int?,
     val target_og: Double?,
-    val volume: Volume?
-)
+    val volume: @RawValue Volume?
+) : Parcelable

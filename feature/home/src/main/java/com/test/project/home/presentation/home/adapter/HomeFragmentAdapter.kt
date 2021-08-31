@@ -8,7 +8,8 @@ import com.test.project.connection.home.domain.entity.get_beer_list.BeerResponse
 
 class HomeFragmentAdapter(
     private val context: Context,
-    private val onBeerClicked: (BeerResponseItem) -> Unit
+    private val onBeerClicked: (BeerResponseItem) -> Unit,
+    private val onCardClicked: (BeerResponseItem) -> Unit
 ) : ListAdapter<BeerResponseItem, HomeFragmentViewHolder>(HomeFragmentDiffUtil()) {
 
     /** */
@@ -21,7 +22,8 @@ class HomeFragmentAdapter(
         holder.bind(
             beerResponseItem = checkInDoneDummyModel,
             context = context,
-            onBeerClicked = onBeerClicked
+            onBeerClicked = onBeerClicked,
+            onCardClicked = onCardClicked
         )
     }
 
